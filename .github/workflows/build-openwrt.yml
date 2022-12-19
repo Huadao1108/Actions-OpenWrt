@@ -8,19 +8,29 @@
 
 name: Build OpenWrt
 
+# on:
+#   repository_dispatch:
+#   release:
+#     types: published
+#   push:
+#     branches:
+#       - master
+#     paths:
+#       - '.config'
+# #  schedule:
+# #    - cron: 0 8 * * 5
+#   watch:
+#     types: started
 on:
-  repository_dispatch:
-  release:
-    types: published
-  push:
-    branches:
-      - master
-    paths:
-      - '.config'
-#  schedule:
-#    - cron: 0 8 * * 5
-  watch:
-    types: started
+  # repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH Action'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: 30 4 * * 1,5
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
